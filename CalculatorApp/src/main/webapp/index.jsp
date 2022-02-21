@@ -14,7 +14,7 @@
     <!-- Screen and clear key -->
     <div class="top">
         <span class="clear">C</span>
-        <div class="screen"></div>
+        <input type="text" readonly class="screen"/>
     </div>
 
     <div class="keys">
@@ -37,5 +37,7 @@
         <span class="operator">x</span>
     </div>
 </div>
+
+<script src="assets/script.js"></script>
 </body>
 </html>

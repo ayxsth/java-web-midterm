@@ -20,10 +20,12 @@ public class InToPre {
     public static String infixToPrefix(String expression){
         StringBuilder result = new StringBuilder();
         StringBuilder input = new StringBuilder(expression);
-        input.reverse();
         Stack<Character> stack = new Stack<>();
 
+        input.reverse();
+
         char [] charsExp = new String(input).toCharArray();
+
         for (int i = 0; i < charsExp.length; i++) {
 
             if (charsExp[i] == '(') {
@@ -35,30 +37,29 @@ public class InToPre {
                 i++;
             }
         }
+
         for (char c : charsExp) {
-            //check if char is operator or operand
             if (precedence(c) > 0) {
-                while (!stack.isEmpty() && precedence(stack.peek()) >= precedence(c)) {
+                while (!stack.isEmpty() && precedence(stack.peek()) >= precedence(c))
                     result.append(stack.pop());
-                }
+
                 stack.push(c);
             } else if (c == ')') {
                 char x = stack.pop();
+
                 while (x != '(') {
                     result.append(x);
                     x = stack.pop();
                 }
-            } else if (c == '(') {
+            } else if (c == '(')
                 stack.push(c);
-            } else {
-                //character is neither operator nor "("
+            else
                 result.append(c);
-            }
         }
 
-        for (int i = 0; i <=stack.size() ; i++) {
+        for (int i = 0; i <=stack.size() ; i++)
             result.append(stack.pop());
-        }
+
         return result.reverse().toString();
     }
 }
