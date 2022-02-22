@@ -6,8 +6,6 @@ public class Question {
     String ansOne, ansTwo, ansThree;
     String correctAns;
 
-    String chosenAns;
-
     public Question() {
     }
 
@@ -68,14 +66,6 @@ public class Question {
         this.correctAns = correctAns;
     }
 
-    public String getChosenAns() {
-        return chosenAns;
-    }
-
-    public void setChosenAns(String chosenAns) {
-        this.chosenAns = chosenAns;
-    }
-
     @Override
     public String toString() {
         return "Question{" +
@@ -85,7 +75,6 @@ public class Question {
                 ", ansTwo='" + ansTwo + '\'' +
                 ", ansThree='" + ansThree + '\'' +
                 ", correctAns='" + correctAns + '\'' +
-                ", chosenAns='" + correctAns + '\'' +
                 '}';
     }
 }

@@ -22,8 +22,6 @@ public class Home extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("username", req.getParameter("username"));
-        session.setAttribute("points", 0);
 
         QuestionDao questionDao = new QuestionDaoImpl();
 
@@ -43,18 +41,29 @@ public class Home extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        List<Question> questions = (List<Question>) session.getAttribute("questions");
-        int points = 0;
-//        List<String> chosenAnswers = new ArrayList<>();
 
-        for (Question question : questions) {
-            String chosenAnswer = req.getParameter(String.valueOf(question.getId()));
-//            chosenAnswers.add(req.getParameter(chosenAnswer));
-            if (Objects.equals(chosenAnswer, question.getCorrectAns()))
-                points++;
+        if(session.getAttribute("buttonName") == "Submit"){
+            List<Question> questions = (List<Question>) session.getAttribute("questions");
+            int points = 0;
+            List<String> chosenAnswers = new ArrayList<>();
+
+            for (Question question : questions) {
+                String chosenAnswer = req.getParameter(String.valueOf(question.getId()));
+                chosenAnswers.add(chosenAnswer);
+                if (Objects.equals(chosenAnswer, question.getCorrectAns()))
+                    points++;
+            }
+
+            session.setAttribute("chosenAnswers", chosenAnswers);
+            session.setAttribute("points", points);
+            session.setAttribute("buttonName", "Try Again");
+        } else if(session.getAttribute("buttonName") == "Try Again"){
+            session.removeAttribute("chosenAnswers");
+            session.removeAttribute("buttonName");
+            session.removeAttribute("questions");
+            session.setAttribute("points", 0);
         }
 
-//        session.setAttribute("chosenAnswers", chosenAnswers);
-        session.setAttribute("points", points);
+        resp.sendRedirect("home");
     }
 }
