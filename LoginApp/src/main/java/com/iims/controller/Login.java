@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
                 session.removeAttribute("error");
                 resp.sendRedirect("home");
             } else {
-                session.setAttribute("error", "Invalid Credentials!");
+                session.setAttribute("error", "Sorry, you are not registered!");
                 resp.sendRedirect("login");
             }
         } else {
